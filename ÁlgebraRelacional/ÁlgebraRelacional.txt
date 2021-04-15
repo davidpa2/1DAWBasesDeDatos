@@ -1,0 +1,6 @@
+Alojamientos rurales:
+2: π nombreal (σ habitacion.tipo = 'double' (σ actividad.codigoAc = realiza.codigoAc ∧ realiza.nombreal = habitacion.nombre (actividad x realiza x habitacion)))
+
+Aves:
+1: π nombreCientifico, nombreVulgar (σ ave.nombreCientifico = observa.codigoAv (ave x (π codigoAv (σ observador.codigo = observa.codigoOb (observa x (π codigo (σ asociacion = 'petirrojo' (observador))))))))
+2: Ni idea...

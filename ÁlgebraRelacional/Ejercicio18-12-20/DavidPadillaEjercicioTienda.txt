@@ -1,0 +1,76 @@
+group: Tienda
+
+clientes = {
+codCliente:number, nombre:string, direccion:string, telefono:number, poblacion:string
+33, 'Antonio Jiménez', 'calle Jimena 44', 666069525, 'Hornachuelos'
+42, 'Javier Capotes', 'calle Poeta Tintafloja 5', 690445633, 'Lucena'
+58, 'Alberto Correas', 'calle Doctor Esclerosis 89', 687443742, 'Lucena'
+43, 'Paco Morón', 'calle Montes Lisos 12', 699895190, 'Écija'
+29, 'Fabiola Flores', 'calle Girasoles 1', 638734525, 'Cabra'
+12, 'Jimena Hernández', 'calle La Huerta 78', 678367781, 'Monte Lope'
+}
+
+producto = {
+codProducto:string, descripcion:string, precio:number
+'Pintura amarilla', 'Una lata de pintura acrílica color amarillo', 30
+'Alicates', 'Alicates de aleación en cromo-vanadio', 18
+'Cinta aislante', 'Cinta aislante color negro', 2
+'Llave de carraca', 'Una llave ideal para tornillos duros', 25
+'Casco de obra', 'Casco amarillo resistente, pero no mucho', 30
+'Taladro percutor', 'Taladro de 12V con baterias recargables', 30
+'Lija fina', 'lija de grano fino ideal para lijar pintura', 3}
+
+
+venta = {
+idVenta:number, codProducto:string, codCliente:number, cantidad:number
+01, 'Alicates', 33, 1
+02, 'Taladro percutor', 33, 1
+03, 'Casco de obra', 33, 3
+04, 'Pintura amarilla', 33, 6
+05, 'Cinta aislante', 33, 2
+06, 'Llave de carraca', 33, 8
+07, 'Lija fina', 33, 4
+08, 'Llave de carraca', 42, 11
+09, 'Pintura amarilla', 42, 1
+10, 'Alicates', 42, 2
+11, 'Cinta aislante', 58, 5
+12, 'Lija fina', 58, 34
+13, 'Casco de obra', 58, 1
+14, 'Taladro percutor', 29, 5
+15, 'Llave de carraca', 29, 1
+16, 'Lija fina', 29, 9
+17, 'Pintura amarilla', 12, 15
+18, 'Cinta aislante', 12, 22
+19, 'Llave de carraca', 12, 1}
+
+factura ={
+nFactura:number, fecha:string, pagada:number, codCliente:number
+'01', '28/09/02', '0','33'
+'02', '31/01/02', '1','42'
+'03', '02/05/03', '0','58'
+'04', '14/02/02', '1','29'
+'05', '08/11/01', '1','12'
+}
+
+
+Ejercicio1 : π clientes.nombre (σ poblacion='Lucena' (clientes))
+
+Ejercicio2: No es posible
+
+Ejercicio3: π clientes.nombre, clientes.codCliente, venta.cantidad (σ venta.cantidad > 10 (σ clientes.codCliente = venta.codCliente (clientes x venta)))
+
+Ejercicio4: (π nombre clientes) - (π clientes.nombre (σ clientes.codCliente = venta.codCliente (clientes x venta)))
+
+Ejercicio5: π nombre (clientes) - (π clientes.nombre (σ clientes.codCliente = venta.codCliente (clientes x (π venta.codProducto, venta.codCliente (σ venta.codProducto = venta.codProducto (producto x venta))))))
+
+Ejercicio6: π venta.idVenta (σ venta.cantidad ≥ venta4.cantidad (σ idVenta = idVenta venta x (ρ venta4 (π venta.cantidad σ idVenta = 04 (venta)))))
+
+Ejercicio7: MAL (π poblacion clientes) - (π clientes.poblacion (σ clientes.codCliente = venta.codCliente (clientes x (σ producto.codProducto = venta.codProducto (producto x venta)))))
+
+Ejercicio8: MAL σ clientes.poblacion = 'Lucena' ∧ clientes.poblacion = 'Cabra' (π poblacion, codProducto (clientes x producto))
+
+Ejercicio9: 
+
+Ejercicio10: π clientes.nombre σ pagada = 0 (σ clientes.codCliente = factura.codCliente (clientes x factura))
+
+Ejercicio11: π clientes.nombre σ pagada = 1 (σ clientes.codCliente = factura.codCliente (clientes x factura))

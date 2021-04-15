@@ -1,0 +1,151 @@
+Ejemplo:
+select dni, nombre, apellido, cod coche, color from clientes c, ventas v where d.dni = v.dni and c.nombre='Luis' and c.apellido='garcia';
+
+Ejemplo añadir un campo más en una tabla.
+	alter table COCHES add column precio2 int default 20000;
+
+-¿Cuales son los concesionarios que tienen la máxima cantidad de coches?
+	select cifc, max(cantidad) maxCantidad from CONCESIONARIO c join DISTRIBUCION d usign (cifc) where maxCantidad = cantidad
+
+-Cambiar todos los coches rojos para que todos ellos los haya vendido el concesionario acar:
+	update ventas v, concesionario c set v.cifc = (select cifc from concesionario where nombre ='acar') where v.cifc = c.cifc and v.color='rojo';
+
+-Rebajar un 20% del precio a los coches de SEAT:
+	update MARCAS ma, MARCO mo, COCHES c set precio = precio * 0.8 where ma.cifm = mo.cifm and mo.codcoche = c.codcoche and ma.nombre = 'seat';
+
+-Borrar todos los coches de la marca BMW:
+	delete c from MARCAS ma, MARCO mo, COCHES c where ma.cifm = mo.cifm and ma.codcoche = c.codcoche and ma.nombre = 'BMW';
+
+1º select * from concesionario;
+
+2º select * from clientes where ciudad = 'Madrid';
+
+3º select * from concesionario where ciudad = 'Madrid';
+
+4º select * from marcas where cuidad = 'Madrid';
+
+5º select nombre from marcas order by nombre;
+
+6º select * from clientes order by apellido, nombre;
+
+7º select c.cifc, sum(cantidad) total from CONCESIONARIO c, DISTRIBUCION d where c.cifc = d.cifc group by cifc having total >= 18;
+
+8º select c.cifc, sum(cantidad) total from CONCESIONARIO c, DISTRIBUCION d where c.cifc = d.cifc group by cifc having total >= 10 && total <= 18;
+
+9º select c.cifc, sum(cantidad) total from CONCESIONARIO c, DISTRIBUCION d where c.cifc = d.cifc group by cifc having total < 5 || total > 18;
+
+10º select cifc, c.nombre, round(avg(cantidad),2) media from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc;
+
+11º select cifc, c.nombre, sum(cantidad) suma from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc;
+
+12º select cifc, c.nombre, sum(cantidad) suma from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc order by suma desc limit 1;
+
+13º select * from CONCESIONARIO join (select cifc, sum(cantidad) maximo from DISTRIBUCION group by cifc having 
+	maximo=(select sum(cantidad) minimo from DISTRIBUCION group by cifc order by minimo desc limit 1)) T1 using (cifc);
+
+14º select cifc, sum(cantidad) suma from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc order by suma;
+
+15º select codcoche, nombre from COCHES where nombre like 'C%';
+
+16º select codcoche, nombre from COCHES where nombre not like '%A%';
+
+17º select count(*) from MARCAS where ciudad = 'Madrid';
+
+18º select ciudad, count(*) contar from CLIENTES group by ciudad order by contar desc limit 1;
+
+19º select ciudad, count(*) contar from CONCESIONARIO group by ciudad;
+
+20º select ciudad, count(*) contar from CLIENTES group by ciudad;
+
+21º select c.nombre, avg(cantidad) from DISTRIBUCION d join CONCESIONARIO c using(cifc) group by cifc;
+
+22º select min(dni), color from CLIENTES c join VENTAS v using (dni) where v.color = 'blanco';
+
+23º select cifm, nombre from MARCAS where nombre like '_I%';
+
+24º select max(dni) from CLIENTES where ciudad = 'madrid';
+
+25º select v.codcoche from VENTAS v join CONCESIONARIO c using (cifc) where c.ciudad = 'Barcelona';
+
+26º select v.codcoche from VENTAS v join CLIENTES c using (dni) where ciudad = 'Madrid';
+
+27º select cli.dni from CLIENTES cli, VENTAS v, CONCESIONARIO c where cli.dni = v.dni and c.cifc = v.cifc and c.ciudad = 'Madrid';
+
+28º select color from VENTAS v join CONCESIONARIO c using (cifc) where c.nombre = 'acar';
+
+29º 
+
+30º 
+
+31º select ma.cifm, ma.nombre, count(*) from MARCAS ma, MARCO mo, COCHES co where ma.cifm = mo.cifm and mo.codcoche = co.codcoche group by cifm;
+
+32º select count(*) total from MARCAS ma, MARCO mo, COCHES co where ma.cifm = mo.cifm and mo.codcoche = co.codcoche group by ma.cifm order by count(*) desc limit 1;
+
+33º select co.nombre, count(*) total from VENTAS v, CONCESIONARIO co where v.cifc=co.cifc group by co.cifc having total=(select count(*) total from VENTAS v, CONCESIONARIO co where v.cifc=co.cifc group by co.cifc order by total desc limit 1);
+
+34º select co.nombre, sum(preciofinal) total from CONCESIONARIO co, VENTAS v where co.cifc = v.cifc group by co.cifc order by total desc;
+
+35º select cl.apellido, cl.ciudad, c.nombre, c.ciudad from CLIENTES cl, VENTAS v, CONCESIONARIO c where cl.dni = v.dni and v.cifc = c.cifc and cl.ciudad = c.ciudad;
+
+36º select  from VENTAS v, CONCESIONARIO co, COCHES c where v.cifc = co.cifc and v.codcoche = c.codcoche and co.ciudad = 'Barcelona';
+
+37º 
+
+38º select cl.nombre from CLIENTES cl, VENTAS v, CONCESIONARIO co where cl.dni = v.dni and v.cifc = co.cifc and co.nombre = 'dcar';
+
+39º select concat("El cliente ", cl.nombre, " ",cl.apellido, " ha adquirido un coche en concesionario DCAR") from CLIENTES cl, VENTAS v, CONCESIONARIO co where cl.dni = v.dni and v.cifc = co.cifc and co.nombre = 'dcar';
+
+40º select cl.nombre, cl.apellido from CLIENTES cl, COCHES c, VENTAS v where cl.dni = v.dni and c.codcoche = v.codcoche and c.modelo = 'gtd' and v.color = 'Blanco';
+
+41º select distinct cl.dni, cl.nombre, cl.apellido from CLIENTES cl, VENTAS v where cl.dni = v.dni and v.cifc in (select co.cifc from CONCESIONARIO co, DISTRIBUCION d, COCHES c where co.cifc = d.cifc and d.codcoche = c.codcoche and modelo = 'gti');
+
+42º select distinct cl.dni, cl.nombre, cl.apellido from CLIENTES cl, VENTAS v where cl.dni = v.dni and v.cifc in (select co.cifc from CONCESIONARIO co, DISTRIBUCION d, COCHES c where co.cifc = d.cifc and d.codcoche = c.codcoche and modelo = 'gti' and co.ciudad = 'Madrid');
+
+43º select * from CLIENTES c1, CLIENTES c2 where c2.nombre='Juan' and c2.apellido = 'Martin' and c1.dni > c2.dni;
+
+44º 
+
+45º 
+
+46º select dni from VENTAS where color != 'rojo' and color != 'rojo';		¿NO?
+
+
+TRIGGERS:
+-------------------------------------------------------------------------------
+Llevar un registro de cuandos coches han vendido los concesionarios:
+
+alter table CONCESIONARIO add column TOTALV int default 0;
+update CONCESIONARIO set TOTALV = 2 where cifc<5;
+
+create trigger ai_ventas after insert on VENTAS
+	for each row update CONCESIONARIO set TOTALV = TOTALV + 1
+	where CONCESIONARIO.cifc = new.cifc;
+
+
+insert into VENTAS values (1,5,7,'verde',12000), (2,6,12,'rojo',12300);
+
+delimiter $$
+create trigger au_ventas after update on VENTAS 
+	for each row begin 
+	update CONCESIONARIO set TOTALV = TOTALV - 1
+	where CONCESIONARIO.cifc = old.cifc;	
+	update CONCESIONARIO set TOTALV = TOTALV + 1
+	where CONCESIONARIO.cifc = new.cifc;	
+	end $$
+delimiter ; 
+
+
+update VENTAS set cifc = 2 where codcoche = 1;
+
+
+delimiter $$
+create trigger ad_ventas after delete on VENTAS 
+	for each row begin 
+	update CONCESIONARIO set TOTALV = TOTALV - 1
+	where CONCESIONARIO.cifc = old.cifc;	
+	
+	end $$
+delimiter ; 
+
+delete from VENTAS where color = 'verde';
+-----------------------------------------------------------------------------

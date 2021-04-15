@@ -1,0 +1,73 @@
+Ejemplo:
+select dni, nombre, apellido, cod coche, color from clientes c, ventas v where d.dni = v.dni and c.nombre='Luis' and c.apellido='garcia';
+
+Ejemplo añadir un campo más en una tabla.
+alter table COCHES add column precio2 int default 20000;
+
+-¿Cuales son los concesionarios que tienen la máxima cantidad de coches?
+select cifc, max(cantidad) maxCantidad from CONCESIONARIO c join DISTRIBUCION d usign (cifc) where maxCantidad = cantidad
+
+-Cambiar todos los coches rojos para que todos ellos los haya vendido el concesionario acar:
+update ventas v, concesionario c set v.cifc = (select cifc from concesionario where nombre ='acar') where v.cifc = c.cifc and v.color='rojo';
+
+1º select * from concesionario;
+
+2º select * from clientes where ciudad = 'Madrid';
+
+3º select * from concesionario where ciudad = 'Madrid';
+
+4º select * from marcas where cuidad = 'Madrid';
+
+5º select nombre from marcas order by nombre;
+
+6º select * from clientes order by apellido, nombre;
+
+7º select c.cifc, sum(cantidad) total from CONCESIONARIO c, DISTRIBUCION d where c.cifc = d.cifc group by cifc 	having total >= 18;
+
+8º select c.cifc, sum(cantidad) total from CONCESIONARIO c, DISTRIBUCION d where c.cifc = d.cifc group by cifc 	having total >= 10 && total <= 18;
+
+9º select c.cifc, sum(cantidad) total from CONCESIONARIO c, DISTRIBUCION d where c.cifc = d.cifc group by cifc 	having total < 5 || total > 18;
+
+10º select cifc, c.nombre, round(avg(cantidad),2) media from CONCESIONARIO c join DISTRIBUCION d using(cifc) group 	by cifc;
+
+11º select cifc, c.nombre, sum(cantidad) suma from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc;
+
+12º select cifc, c.nombre, sum(cantidad) suma from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc 	order by suma desc limit 1;
+
+13º select cifc, c.nombre, sum(cantidad) suma from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc 	order by suma asc limit 1;
+
+14º select cifc, sum(cantidad) suma from CONCESIONARIO c join DISTRIBUCION d using(cifc) group by cifc order by 	suma;
+
+15º select codcoche from COCHES where nombre like 'C%';
+
+16º select codcoche from COCHES where nombre not like '%A%';
+
+17º select count(nombre), nombre, ciudad from MARCAS where ciudad = 'Madrid';
+
+18º select count(*) contar, nombre from CLIENTES group by ciudad order by contar desc limit 1;
+
+19º select count(*) contar from CONCESIONARIO group by ciudad;
+
+20º select count(*) contar from CLIENTES group by ciudad;
+
+21º select avg(cantidad) from distribucion d join concesionario c using(cifc) group by cifc;
+
+22º select min(dni) from CLIENTES c join VENTAS v using(dni) where v.color = 'blanco';
+
+23º select cifc, nombre from MARCAS where nombre like '_I%';
+
+24º select max(dni) from CLIENTES where ciudad = 'madrid';
+
+25º select v.codcoche from VENTAS v join CONCESIONARIO c using (cifc) where c.ciudad = 'Barcelona';
+
+26º select v.codcoche from VENTAS v join CLIENTES c using (dni) where ciudad = 'Madrid';
+
+27º select v.dni, c.apellido, c.nombre from CLIENTES c, VENTAS v, CONCESIONARIO co where c.dni = v.dni and co.cifc = v.cifc and co.ciudad = 'Madrid';
+	|
+CON JOIN: select T1.dni, T1.apellido, T1.nombre from (select * from CLIENTES c join VENTAS v using (dni)) T1 join CONCESIONARIO co using(cifc) where co.ciudad = 'Madrid';
+
+28º select color from VENTAS v join CONCESIONARIO c using (cifc) where c.nombre = 'acar';
+
+29º select codcoche from VENTAS v join CONCESIONARIO c using (cifc) where c.ciudad = 'Madrid';
+
+30º select T1.codcoche, T1.dni, T1.nombre from CONCESIONARIO c join (select * from CLIENTES cli join VENTAS v using (dni) where cli.ciudad = 'Madrid') T1 using (cifc) where c.ciudad = 'Madrid';

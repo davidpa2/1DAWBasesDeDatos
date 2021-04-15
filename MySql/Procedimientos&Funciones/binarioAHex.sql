@@ -1,0 +1,1 @@
+/*Pasar de binario a hexadecimal*/

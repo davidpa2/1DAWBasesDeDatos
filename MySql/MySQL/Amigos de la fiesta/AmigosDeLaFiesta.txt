@@ -1,0 +1,56 @@
+drop database if exists fiesta;
+create database if not exists fiesta;
+use fiesta;
+
+create table plaza(
+nombre varchar(20) primary key,
+localidad varchar(20),
+aforo int);
+
+create table corrida(
+feria varchar(20),
+anio int(4),
+orden tinyint unsigned,
+constraint fk1 primary key (feria, anio, orden),
+constraint fk4 foreign key (plaza) references plaza(nombre));
+
+create table torero(
+dni varchar(9) primary key,
+nombre varchar(30),
+apodo varchar(20) unique,
+fechaAl date,
+padrino varchar(9),
+apoderado varchar(9),
+constraint fk1 foreign key (padrino) references torero(dni)
+on update cascade on delete restrict);
+
+create table actua(
+dniTor varchar(9),
+feria varchar(20),
+anio int(4),
+orden tinyint unsigned,
+orejas tinyint unsigned default 0,
+puerta enum ('si','no') default 'no',
+primary key(dniTor, feria, anio, orden),
+constraint fk2 foreign key (dniTor) references torero(dni),
+constraint fk3 foreign key (feria, anio, orden) references corrida(feria, anio, orden)
+on update cascade on delete restrict);
+
+create table ganaderia(
+codigo int primary key,
+nombre varchar(20),
+localidad varchar(20),
+fechaFun int(4) unsigned);
+
+create table toro(
+codigoG int,
+numero int(4) unsigned,
+primary key (codigoG, numero),
+nombre varchar(20),
+fecha date,
+color varchar(20),
+codigoCorrida int,
+numeroC int(4) unsigned,
+feria varchar(20),
+constraint fk5 foreign key (codigo) references ganaderia(codigo)
+constraint fk6 foreign key (codigoCorrida, numero, feria) references corrida (codigo, numero, feria) on update cascade on delete restrict;

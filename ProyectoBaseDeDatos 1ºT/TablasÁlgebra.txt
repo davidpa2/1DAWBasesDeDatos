@@ -1,0 +1,28 @@
+group: tiendaJuegos
+
+Juego = {
+titulo:string, tipo:string, edadRec:string, precio:number
+TheLastOfUs, aventura, 18, 20
+GhostOfThusima, lucha, 12, 69
+RedDeadRedemption2, aventura, 16, 30
+Halo, shooter, 16, 40}
+
+Desarrollado = {
+tituloJuego:string, nombreConsola:string
+TheLastOfUs, PS4
+GhostOfThusima, PS4
+RedDeadRedemption2, XBoxONE
+Halo, XBoxONE
+MarioKart8Deluxe, NintendoSwitch}
+
+consola = {
+nombre:string, fecha:date
+PS4, 2013-11-15
+XBoxONE, 2013-11-22
+NintendoSwitch, 2017-03-03}
+
+
+Consultas:
+1.-De cada título en qué consolas está desarrollado.
+Desarrollado
+2.-

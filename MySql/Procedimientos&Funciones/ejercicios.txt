@@ -1,0 +1,86 @@
+Ejercicios PL/Sql 2
+Ejercicios adicionales de PL-SQL
+
+1º Crear una función que retorne un carácter desplazándolo 3 posiciones en la tabla ascii, pasado como argumento. Lo mismo para desencriptar.
+
+2º Mejorar las funciones del ejercicio anterior, añadiendo en la línea de argumentos un desplazamiento, sin el cual no es posible recuperar el carácter original.
+
+3º Crear una función que pasado una cadena de  caracteres, la retorne encriptada usando las funciones anteriores. Lo mismo para desencriptar.
+
+4º Crear un procedimiento que dé de alta a distintos usuarios almacenando su nombre de usuario y su contraseña esta debe ser almacenada encriptada usando alguna de las funciones anteriores
+
+5º Crear una función que autentifique retornando un booleano si el usuario y contraseña introducido como argumento es usuario del sistema o no-
+
+6º Crear una función que retorne una cadena de caracteres sin espacios en blanco (no se permite la función replace()).
+
+7º Crear una función que te indique si un cadena de caracteres es un palíndromo o no.
+
+8º Crear las funciones necesarias para que te obtenga de un TimeStamp los distintos datos
+
+·         Año.  
+
+·         Mes.
+
+·         Día.
+
+·         Hora.
+
+·         Minutos.
+
+·         Segundos.
+
+ 
+
+9º Crear un procedimiento que introduzca en una tablas los puntos donde coinciden las funciones seno y coseno entre 0º y 360º. Usar funciones radians() y degrees()(busca en la ayuda mysql).
+
+ 
+
+ 
+
+10º Crea un procedimiento que intercambia el contendido de dos variables int(11) pasadas como argumentos.
+
+ 
+
+11º Crea una función que nos indique si un número pasado como argumento es primo o no.
+
+ 
+
+12º Crea un procedimiento que introduzca en una tabla los números primos contenidos entre dos números pasados como argumento, es indiferente el orden de los argumentos.
+
+13º Crear un función que devuelva el factorial de un número.
+
+
+
+14º Crear una función que devuelva la distancia entre dos puntos.
+
+ 
+
+15º Sobre la base de datos COCHES, realizar un procedimiento llamado VENTA(cliente, modelo, concesionario, color, porcentaje) que haga la inserción en la tabla correspondiente, introduciendo el precio final de la venta multiplicando el porcentaje por el valor del modelo( si el modelo tiene un precio de 20.000 y se aplica con porcentaje de 0,8 habrá que introducir en el precio final de la venta 20.000*0,8)
+
+ 
+
+16º Mejorar el procedimiento anterior reduciendo en el stock del concesionario el modelo que ha  vendido, además de asegurarse  que  ese modelo está en stock en el concesionario. 
+
+
+
+Cursores
+
+17º En la base de datos empleados, crear una tabla  nueva que contenga, sólo los empleados, que cobran menos de la media,
+
+18º Subir el sueldo un 20%, a los empleados contenidos en esta tabla.
+
+19 Crear dos tablas con números aleatorios(buscar función para números aleatorios). El número de números aleatorios debe ser también aleatorio. Hacer una fusión(merge) de ambas tablas en una tabla nueva de manera que esta última los números están ordenados
+
+20º En la base de datos coches crear un procedimiento, que mediante un cursor,  almacene en la tabla marcas en número de coches vendidos de cada marca.
+
+21º Ejercicio de cursores anidados.  Realizar un listado de empleados por localidad donde trabajan de manera:
+
+ Madrid
+ ............
+........
+Barcelona
+.........
+.........
+Sevilla
+.........
+.......
