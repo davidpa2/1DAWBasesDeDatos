@@ -115,6 +115,8 @@ Funciones:
 -Concat:
 	select concat('hola',' Paco');
 
+-Número aleatorio: rand()
+
 -Using: El using se utiliza para al multiplicar dos tablas y que te aparezcan sólo los campos que nos interesan.
 	select dep_no, sum(salario), dnombre from empleados e join departamentos d using(dep_no) group by dep_no;
 
@@ -237,3 +239,36 @@ set @var1 = suma(7,5)  -Se le puede asignar una llamada a un procedimiento.
 
 	delimiter ;
 
+-Cursores: Sirven para poder trabajar con las tuplas de manera independiente
+
+	delimiter $$
+	create function puntosPiloto (n int) returns int
+	begin	
+		declare p int;
+		declare posFin int;
+		declare salida int default 0;
+		declare i int default 0;
+
+		declare cur1 cursor for select piloto from carrera where condicion;
+		declare continue handler for sqlstate '0200' set i = 1;
+
+		open cur1;
+		fetch cur1 into p, posFin;
+
+		while (i=0) do
+			if (posFin = 1) then
+				set salida = salida + 20;
+			else if (posFin = 2) then
+				set salida = salida + 15;
+			else if (posFin = 3) then
+				set salida = salida + 10;
+			end if;
+
+			fetch cur1 into p, posFin;
+		end while;
+
+		close cur1;
+	return salida;
+	end $$
+
+	delimiter ;
