@@ -1,0 +1,24 @@
+CREATE OR REPLACE FUNCTION PALINDROMO 
+(
+  CADENA IN VARCHAR2 
+, N IN NUMERIC
+, M IN NUMERIC
+) RETURN NUMERIC AS 
+BEGIN
+    if (N>M) then 
+        return 1;
+    elseif (substr(CADENA,N,1) = substr(CADENA, M, 1)) then
+        return PALINDROMO(CADENA, N+1, M-1);
+    else
+        return 0;
+    end if;
+END PALINDROMO;
+
+
+CREATE OR REPLACE FUNCTION LLAMARPALINDROMO 
+(
+  CADENA IN VARCHAR2 
+) RETURN NUMBER AS 
+BEGIN
+  RETURN palindromo(1 , cadena,length(cadena));
+END LLAMARPALINDROMO;
