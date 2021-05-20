@@ -191,7 +191,7 @@ create procedure p1 (x int, y int)
 	end $$
 delimiter;
 
-call p1;
+call p1();
 
 
 -Funciones: deben de devolver un tipo
@@ -199,12 +199,14 @@ call p1;
 delimiter $$
 create function suma (x int, y int) 
 returns int
-	begin 
+	begin
 		declare a int default 0;
 		set a =x + y;
 		return a;
 	end $$
 delimiter ;
+
+select suma();
 
 -Declarar una variable temporal: Desaparecerán una vez se salga de SQL
 set @var1 = suma(7,5)  -Se le puede asignar una llamada a un procedimiento.
@@ -249,8 +251,8 @@ set @var1 = suma(7,5)  -Se le puede asignar una llamada a un procedimiento.
 		declare salida int default 0;
 		declare i int default 0;
 
-		declare cur1 cursor for select piloto from carrera where condicion;
-		declare continue handler for sqlstate '0200' set i = 1;
+		declare cur1 cursor for select posicion, posicionFinal from carrera where condicion;
+		declare continue handler for sqlstate '02000' set i = 1;
 
 		open cur1;
 		fetch cur1 into p, posFin;

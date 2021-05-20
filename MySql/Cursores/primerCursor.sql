@@ -1,6 +1,6 @@
 delimiter $$
 drop function if exists puntosPiloto;
-create function puntosPiloto (n int) returns int deterministic
+create function puntosPiloto(n int) returns int deterministic
 begin	
 	declare piloto int;
 	declare posFin int;
