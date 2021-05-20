@@ -203,3 +203,11 @@ update gente g set g.unUsuario.credito=200 where g.unUsuario.nombre = 'Paco';
 crear una secuencia
   A la hora de insertar hay que poner:
   insert into tabla values(secuencia.nextval, )
+
+
+-Uso de select into
+declare
+j1 usuariocasino:=new jugador('');
+begin
+select t.nombre, t.credito into j1.nombre, j1.credito from jugadores t where t.nombre='Pepe';
+end;
