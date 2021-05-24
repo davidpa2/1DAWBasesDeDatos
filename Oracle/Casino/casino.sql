@@ -76,6 +76,7 @@ return self as result AS
             IF(MOD(elec,2) = mod(numAleatorio,2)) THEN
                  usuario.incrementarSaldo(apostado);
                  SELF.credito:=self.credito-apostado;
+                 update casinos set credito = credito - apostado where nombreCasino = self.nombreCasino;
             ELSE
                 usuario.decrementarSaldo(apostado);
                 SELF.credito:=self.credito+apostado;
